@@ -1,0 +1,22 @@
+bronze_table: mz_catalog.mz_schema.bronze_customers_orders
+silver_table: mz_catalog.mz_schema.silver_customers_orders
+
+columns:
+  - source: customer_id
+    target: customer_id
+
+  - source: customer_name
+    target: customer_name
+    transformation: UPPER(customer_name)
+  
+  - source: country
+    target: country
+
+  - source: email
+    target: email
+
+  - source: amount
+    target: amount_eur
+    transformation: amount * 0.93
+
+scd_type2: yes

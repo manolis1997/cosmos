@@ -1,0 +1,14 @@
+bronze_table: mz_catalog.mz_schema.bronze_customers_orders
+silver_table: mz_catalog.mz_schema.silver_customers_orders
+
+columns:
+  - source: product_id
+    target: product_id
+
+  - source: warehouse_id
+    target: warehouse_id
+  
+  - source: stock_quantity
+    target: quantity
+
+scd_type2: yes
