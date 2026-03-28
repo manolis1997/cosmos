@@ -4,6 +4,7 @@ silver_table: mz_catalog.mz_schema.silver_customers_orders
 columns:
   - source: customer_id
     target: customer_id
+    primary_key: yes
 
   - source: customer_name
     target: customer_name
@@ -13,7 +14,7 @@ columns:
     target: country
 
   - source: email
-    target: email
+    target: my_email
 
   - source: amount
     target: amount_eur
