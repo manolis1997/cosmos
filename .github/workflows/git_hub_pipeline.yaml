@@ -32,8 +32,11 @@ jobs:
             - name: Databricks CLI Version
               run: databricks -v
             
-            - name: Configure Databricks CLI Authentication                                                                                                                                                                                                                                        
-              run: databricks configure --profile DEFAULT --host $DATABRICKS_HOST --client-id $DATABRICKS_CLIENT_ID --client-secret $DATABRICKS_CLIENT_SECRET   
+            - name: Configure Databricks CLI Authentication
+              run: |
+                printf '[DEFAULT]\nhost = %s\nclient_id = %s\nclient_secret = %s\n' \
+                  "$DATABRICKS_HOST" "$DATABRICKS_CLIENT_ID" "$DATABRICKS_CLIENT_SECRET" \
+                  > ~/.databrickscfg
             
             - name: Install uv
               run: pip install uv
