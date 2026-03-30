@@ -1,3 +1,4 @@
+import os
 import yaml
 
 class ReadYaml:
@@ -6,7 +7,8 @@ class ReadYaml:
 
     @property
     def read_yaml(self):
-        with open(f"configs/{self.table_name}.yaml", "r") as f:
+        config_path = os.path.join(os.path.dirname(__file__), "..", "..", "configs", f"{self.table_name}.yaml")
+        with open(config_path, "r") as f:
             config = yaml.safe_load(f)
         
         return config
