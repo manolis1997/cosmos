@@ -8,6 +8,7 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
+        environment: dev
         defaults:
             run:
                 working-directory: ./pipeline/
@@ -34,10 +35,10 @@ jobs:
             
             - name: Configure Databricks CLI Authentication
               run: |
-                printf '[DEFAULT]\nhost = %s\nclient_id = %s\nclient_secret = %s\n' \
-                  "$DATABRICKS_HOST" "$DATABRICKS_CLIENT_ID" "$DATABRICKS_CLIENT_SECRET" \
+                printf '[DEFAULT]\nhost = %s\nclient_id = %s\nclient_secret = %s\ncluster_id = %s\n' \
+                  "$DATABRICKS_HOST" "$DATABRICKS_CLIENT_ID" "$DATABRICKS_CLIENT_SECRET" "$DATABRICKS_CLUSTER_ID" \
                   > ~/.databrickscfg
-                  
+
             - name: Print Databrickscfg
               run: cat ~/.databrickscfg  
             
