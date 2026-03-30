@@ -37,6 +37,9 @@ jobs:
                 printf '[DEFAULT]\nhost = %s\nclient_id = %s\nclient_secret = %s\n' \
                   "$DATABRICKS_HOST" "$DATABRICKS_CLIENT_ID" "$DATABRICKS_CLIENT_SECRET" \
                   > ~/.databrickscfg
+                  
+            - name: Print Databrickscfg
+              run: cat ~/.databrickscfg  
             
             - name: Databricks Auth Profiles
               run: databricks auth profiles
