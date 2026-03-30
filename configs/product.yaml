@@ -1,0 +1,16 @@
+bronze_table: mz_catalog.mz_schema.bronze_products_inventory
+silver_table: mz_catalog.mz_schema.silver_products_inventory
+
+columns:
+  - source: product_id
+    target: product_id
+    primary_key: yes
+
+  - source: warehouse_id
+    target: warehouse_id
+    primary_key: yes
+  
+  - source: stock_quantity
+    target: quantity
+
+scd_type2: yes
