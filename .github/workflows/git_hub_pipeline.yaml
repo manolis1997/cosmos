@@ -11,6 +11,12 @@ jobs:
         defaults:
             run:
                 working-directory: ./pipeline/
+
+        env:
+          DATABRICKS_HOST: https://adb-1738163877178133.13.azuredatabricks.net/
+          DATABRICKS_CLIENT_ID: ${{secrets.DEV_SP_CLIENT_ID}}
+          DATABRICKS_CLIENT_SECRET: ${{secrets.DEV_SP_CLIENT_SECRET}}                                                                                                                                                                                                                              
+          DATABRICKS_CLUSTER_ID: ${{secrets.DEV_CLUSTER_ID}}   
         steps:
             - name: Checkout code # Pull the repo into ubuntu system
               uses: actions/checkout@v3
@@ -25,6 +31,9 @@ jobs:
             
             - name: Databricks CLI Version
               run: databricks -v
+            
+            - name: Configure Databricks CLI Authentication                                                                                                                                                                                                                                        
+              run: databricks configure --profile DEFAULT --host $DATABRICKS_HOST --client-id $DATABRICKS_CLIENT_ID --client-secret $DATABRICKS_CLIENT_SECRET   
             
             - name: Install uv
               run: pip install uv
