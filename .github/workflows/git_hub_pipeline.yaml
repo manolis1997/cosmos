@@ -27,29 +27,8 @@ jobs:
               with:
                 python-version: "3.12"
             
-            - name: Install Databricks CLI
-              run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-            
-            - name: Databricks CLI Version
-              run: databricks -v
-            
-            - name: Configure Databricks CLI Authentication
-              run: |
-                printf '[DEFAULT]\nhost = %s\nclient_id = %s\nclient_secret = %s\ncluster_id = %s\n' \
-                  "$DATABRICKS_HOST" "$DATABRICKS_CLIENT_ID" "$DATABRICKS_CLIENT_SECRET" "$DATABRICKS_CLUSTER_ID" \
-                  > ~/.databrickscfg
-
-            - name: Print Databrickscfg
-              run: cat ~/.databrickscfg  
-            
-            - name: Databricks Auth Profiles
-              run: databricks auth profiles
-            
-            - name: Install uv
-              run: pip install uv
-
-            - name: Install uv dependencies
-              run: uv sync
+            - name: Initialise Environment
+              run: bash ../scripts/init.sh
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
