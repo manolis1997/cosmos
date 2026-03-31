@@ -26,7 +26,7 @@ jobs:
               with:
                 python-version: "3.12"
             
-            - name: Initialise Environment # Set up the env
+            - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
             
             - name: Run the Code
