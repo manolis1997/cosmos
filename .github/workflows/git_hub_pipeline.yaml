@@ -32,4 +32,6 @@ jobs:
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
+
+              
               
