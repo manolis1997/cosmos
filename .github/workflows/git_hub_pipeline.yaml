@@ -12,7 +12,6 @@ jobs:
         defaults:
             run:
                 working-directory: ./pipeline/
-
         env:
           DATABRICKS_HOST: https://adb-1738163877178133.13.azuredatabricks.net/
           DATABRICKS_CLIENT_ID: ${{secrets.DEV_SP_CLIENT_ID}}
