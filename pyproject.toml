@@ -10,9 +10,5 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["setuptools"]
-
-[tool.setuptools.packages.find]
-where = ["."]
-exclude = [".venv*", "tests*"]
-
+requires = ["uv-build"]
+build-backend = "uv_build"
