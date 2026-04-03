@@ -13,6 +13,6 @@ dependencies = [
 requires = ["setuptools"]
 
 [tool.setuptools.packages.find]
-where = "."
+where = ["."]
 exclude = [".venv*", "tests*"]
 
