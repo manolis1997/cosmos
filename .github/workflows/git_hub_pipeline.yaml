@@ -6,7 +6,7 @@ on:
         branches:
             - development
 jobs:
-    test:
+    CI:
         runs-on: ubuntu-latest
         environment: dev
         defaults:
