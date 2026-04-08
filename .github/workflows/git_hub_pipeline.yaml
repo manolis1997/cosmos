@@ -1,12 +1,13 @@
 # CI Pipeline
 name: SCD App
 
+
 on:
     pull_request:
         branches:
             - development
 jobs:
-    test:
+    CI:
         runs-on: ubuntu-latest
         environment: dev
         defaults:
