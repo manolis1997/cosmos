@@ -38,7 +38,6 @@ jobs:
               with:
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 path: ~/.cache/uv
-
                 
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
