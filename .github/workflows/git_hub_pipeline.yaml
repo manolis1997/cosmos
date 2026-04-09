@@ -11,6 +11,9 @@ jobs:
     CI:
         runs-on: ubuntu-latest
         environment: dev
+        permissions:
+          actions: write
+          contents: read
         defaults:
             run:
                 working-directory: ./pipeline/
@@ -33,6 +36,7 @@ jobs:
               with:
                 enable-cache: true
                 cache-dependency-glob: "uv.lock"
+                cache-local-path: ~/.cache/uv
 
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
