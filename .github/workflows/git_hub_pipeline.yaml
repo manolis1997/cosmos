@@ -36,10 +36,10 @@ jobs:
               env:
                 cache-name: cache-uv-modules
               with:
+                path: ~/.cache/uv
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 restore-keys: |
-                  ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
-                path: ~/.cache/uv
+                  ${{ runner.os }}-uv-
                 
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
