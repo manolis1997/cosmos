@@ -38,7 +38,7 @@ jobs:
               with:
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 restore-keys: |
-                  ${{ runner.os }}-uv-
+                  ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 path: ~/.cache/uv
                 
             - name: Initialise Environment # Set up the ENV
