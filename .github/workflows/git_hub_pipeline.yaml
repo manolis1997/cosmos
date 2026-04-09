@@ -37,6 +37,8 @@ jobs:
                 cache-name: cache-uv-modules
               with:
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+                restore-keys: |
+                  ${{ runner.os }}-uv-
                 path: ~/.cache/uv
                 
             - name: Initialise Environment # Set up the ENV
@@ -44,4 +46,3 @@ jobs:
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
-              
