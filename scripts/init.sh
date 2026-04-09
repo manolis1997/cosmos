@@ -23,4 +23,5 @@ cat ~/.databrickscfg
 databricks auth profiles
 
 # Install dependencies
+pip install uv
 uv sync
