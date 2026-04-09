@@ -11,6 +11,9 @@ jobs:
     CI:
         runs-on: ubuntu-latest
         environment: dev
+        permissions:
+          actions: write
+          contents: read
         defaults:
             run:
                 working-directory: ./pipeline/
@@ -29,14 +32,15 @@ jobs:
                 python-version: "3.12"
 
             - name: Install uv
-              uses: astral-sh/setup-uv@v4
+              uses: actions/cache@v4
+              env:
+                cache-name: cache-uv-modules
               with:
-                enable-cache: true
-                cache-dependency-glob: "uv.lock"
-
+                key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+                path: ~/.cache/uv
+                
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
-              
