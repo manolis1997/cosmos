@@ -30,7 +30,6 @@ jobs:
               uses: actions/setup-python@v4
               with:
                 python-version: "3.12"
-
                 
             - name: Install uv
               uses: actions/cache@v4
@@ -42,12 +41,15 @@ jobs:
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 restore-keys: |
                   ${{ runner.os }}-uv-
-            
-            - if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
-              name: List the state of node modules
+
+            - name: Install Dependencies
+              if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
               continue-on-error: true
-              run: uv pip list
-                      
+              run: |
+                  curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+                  pip install uv
+                  uv sync
+
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
             

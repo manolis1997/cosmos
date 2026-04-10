@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e # if any of below commands is failed then the script will be terminate, if i didnt use this command then if any command is failed then the script will continue
 
-# Install Databricks CLI
-curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-
 # Print Databricks CLI version
 databricks -v
 
@@ -21,7 +18,3 @@ cat ~/.databrickscfg
 
 # Verify auth profiles
 databricks auth profiles
-
-# Install dependencies
-pip install uv
-uv sync
