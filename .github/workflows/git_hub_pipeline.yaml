@@ -2,9 +2,6 @@
 name: SCD App
 
 on:
-    push:
-        branches:
-            - development
     pull_request:
         branches:
             - development
@@ -37,6 +34,7 @@ jobs:
                 
             - name: Install uv
               uses: actions/cache@v4
+              id: uv-install-dependencies
               env:
                 cache-name: cache-uv-modules
               with:
@@ -44,7 +42,12 @@ jobs:
                 key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
                 restore-keys: |
                   ${{ runner.os }}-uv-
-                
+            
+            - if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
+              name: List the state of node modules
+              continue-on-error: true
+              run: uv pip list
+                      
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
             
