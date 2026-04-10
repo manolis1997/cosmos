@@ -46,8 +46,6 @@ jobs:
               if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
               continue-on-error: true
               run: |
-                  curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-                  echo "$HOME/.databricks/bin" >> $GITHUB_PATH
                   pip install uv
                   uv sync
 
