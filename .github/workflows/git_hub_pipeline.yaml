@@ -38,13 +38,12 @@ jobs:
                 cache-name: cache-uv-modules
               with:
                 path: ~/.cache/uv
-                key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+                key: ${{ runner.os }}-uv-${{ hashFiles('pyproject.toml') }}
                 restore-keys: |
                   ${{ runner.os }}-uv-
 
             - name: Install Dependencies
               if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
-              continue-on-error: true
               run: |
                   uv sync
 
