@@ -51,6 +51,10 @@ jobs:
 
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
+
+            - name: UV pip list
+              run: |
+                uv pip list
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
