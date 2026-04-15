@@ -21,5 +21,3 @@ cat ~/.databrickscfg
 
 # Verify auth profiles
 databricks auth profiles
-
-pip install uv

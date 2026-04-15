@@ -45,6 +45,7 @@ jobs:
             - name: Install Dependencies
               if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
               run: |
+                  pip install uv
                   uv sync
 
             - name: Initialise Environment # Set up the ENV
@@ -56,4 +57,3 @@ jobs:
             
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
-              
