@@ -38,7 +38,7 @@ jobs:
                 cache-name: cache-uv-modules
               with:
                 path: ~/.cache/uv
-                key: ${{ runner.os }}-uv-${{ hashFiles('pyproject.toml') }}
+                key: ${{ runner.os }}-uv-${{ hashFiles('./pyproject.toml') }}
                 restore-keys: |
                   ${{ runner.os }}-uv-
 
