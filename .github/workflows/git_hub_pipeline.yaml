@@ -46,7 +46,6 @@ jobs:
               if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
               continue-on-error: true
               run: |
-                  pip install uv
                   uv sync
 
             - name: Initialise Environment # Set up the ENV
