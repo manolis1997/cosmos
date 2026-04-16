@@ -2,9 +2,6 @@
 name: SCD App
 
 on:
-    push:
-        branches:
-            - development
     pull_request:
         branches:
             - development
@@ -33,19 +30,41 @@ jobs:
               uses: actions/setup-python@v4
               with:
                 python-version: "3.12"
-
-            - name: Install uv
+            
+            - name: Install UV
+              run: | 
+                pip install uv
+                
+            - name: Caching Logic
               uses: actions/cache@v4
+              id: uv-install-dependencies
               env:
                 cache-name: cache-uv-modules
               with:
                 path: ~/.cache/uv
-                key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+                key: ${{ runner.os }}-uv-${{ hashFiles('./pyproject.toml') }}
                 restore-keys: |
                   ${{ runner.os }}-uv-
-                
+
+            - name: Install Dependencies
+              if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
+              run: |
+                  uv sync
+            
+            - name: Print pwd
+              run: |
+                pwd
+                ls ./
+
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
-            
+
+            - name: UV pip list
+              run: |
+                uv pip list
+
+            - name: Run the Dummy Code
+              run: uv run python ../main.py
+        
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
