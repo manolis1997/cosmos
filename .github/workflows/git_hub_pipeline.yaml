@@ -70,8 +70,12 @@ jobs:
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
 
+
+            - name: Create dist folder
+              run: mkdir ../dist
+
             - name: Upload Artifacts
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                 name: my-artifact
-                path: ./dist
+                path: ../dist/
