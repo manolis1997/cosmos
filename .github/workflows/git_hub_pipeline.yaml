@@ -71,11 +71,13 @@ jobs:
               run: uv run python pipeline_code.py --table product --load CDC
 
 
-            - name: Create dist folder
-              run: mkdir dist
+            - name: Build release distributions
+              run: | 
+                uv build
 
             - name: Upload Artifacts
               uses: actions/upload-artifact@v7
               with:
                 name: my-artifact
                 path: dist/
+                overwrite: true
