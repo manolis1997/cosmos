@@ -73,6 +73,7 @@ jobs:
 
             - name: Build release distributions
               run: | 
+                cd ..
                 uv build
 
             - name: Upload Artifacts
