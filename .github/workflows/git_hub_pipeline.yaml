@@ -82,3 +82,42 @@ jobs:
                 name: my-artifact
                 path: dist/
                 overwrite: true
+                
+    CD:
+      runs-on: ubuntu-latest
+      needs: CI   # 👈 ensures CI finishes first
+
+      defaults:
+        run:
+          working-directory: ./pipeline/
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.12"
+
+        - name: Install UV
+          run: pip install uv
+
+        - name: Restore UV cache
+          uses: actions/cache@v4
+          id: uv-install-dependencies
+          with:
+            path: ~/.cache/uv
+            key: ${{ runner.os }}-uv-${{ hashFiles('./pyproject.toml') }}
+            restore-keys: |
+              ${{ runner.os }}-uv-
+
+        - name: Install Dependencies (if cache missed)
+          if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
+          run: uv sync
+
+        - name: Verify dependencies
+          run: uv pip list
+
+        - name: Run CD step (example)
+          run: uv run python pipeline_code.py --table product --load FULL
