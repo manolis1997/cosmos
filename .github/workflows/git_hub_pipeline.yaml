@@ -112,7 +112,7 @@ jobs:
             path: dist/
 
         - name: Install cosmos wheel
-          run: uv pip install ../dist/cosmos-*.whl
+          run: uv add install ../dist/cosmos-*.whl
 
         - name: Verify installation
           run: uv pip list
