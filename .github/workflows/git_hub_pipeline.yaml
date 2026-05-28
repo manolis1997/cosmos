@@ -80,42 +80,42 @@ jobs:
                 path: dist/
                 overwrite: true
 
-    CD:
-      runs-on: ubuntu-latest
-      needs: CI
-      environment: dev
-      defaults:
-        run:
-          working-directory: ./pipeline/
-      env:
-        DATABRICKS_HOST: https://adb-1738163877178133.13.azuredatabricks.net/
-        DATABRICKS_CLIENT_ID: ${{secrets.DEV_SP_CLIENT_ID}}
-        DATABRICKS_CLIENT_SECRET: ${{secrets.DEV_SP_CLIENT_SECRET}}
-        DATABRICKS_CLUSTER_ID: ${{secrets.DEV_CLUSTER_ID}}
+    # CD:
+    #   runs-on: ubuntu-latest
+    #   needs: CI
+    #   environment: dev
+    #   defaults:
+    #     run:
+    #       working-directory: ./pipeline/
+    #   env:
+    #     DATABRICKS_HOST: https://adb-1738163877178133.13.azuredatabricks.net/
+    #     DATABRICKS_CLIENT_ID: ${{secrets.DEV_SP_CLIENT_ID}}
+    #     DATABRICKS_CLIENT_SECRET: ${{secrets.DEV_SP_CLIENT_SECRET}}
+    #     DATABRICKS_CLUSTER_ID: ${{secrets.DEV_CLUSTER_ID}}
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+    #   steps:
+    #     - name: Checkout code
+    #       uses: actions/checkout@v3
 
-        - name: Set up Python
-          uses: actions/setup-python@v4
-          with:
-            python-version: "3.12"
+    #     - name: Set up Python
+    #       uses: actions/setup-python@v4
+    #       with:
+    #         python-version: "3.12"
 
-        - name: Install UV
-          run: pip install uv
+    #     - name: Install UV
+    #       run: pip install uv
 
-        - name: Download build artifact
-          uses: actions/download-artifact@v4
-          with:
-            name: my-artifact
-            path: dist/
+    #     - name: Download build artifact
+    #       uses: actions/download-artifact@v4
+    #       with:
+    #         name: my-artifact
+    #         path: dist/
 
-        - name: Install cosmos wheel
-          run: uv add install ../dist/cosmos-*.whl
+    #     - name: Install cosmos wheel
+    #       run: uv add install ../dist/cosmos-*.whl
 
-        - name: Verify installation
-          run: uv pip list
+    #     - name: Verify installation
+    #       run: uv pip list
 
-        - name: Run CD step
-          run: uv run python pipeline_code.py --table product --load FULL
+    #     - name: Run CD step
+    #       run: uv run python pipeline_code.py --table product --load FULL
