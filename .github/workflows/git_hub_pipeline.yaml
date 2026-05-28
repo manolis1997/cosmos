@@ -63,9 +63,6 @@ jobs:
             - name: UV pip list
               run: |
                 uv pip list
-
-            - name: Run the Dummy Code
-              run: uv run python ../main.py
         
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
