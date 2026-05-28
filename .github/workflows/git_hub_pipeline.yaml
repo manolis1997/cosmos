@@ -52,8 +52,8 @@ jobs:
               run: |
                   uv sync
             
-            - name: Install Dependencies (prod group)
-              run: uv sync --group prod
+            - name: Install Dependencies (dev group)
+              run: uv sync --group dev
             
             - name: Print pwd
               run: |

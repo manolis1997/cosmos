@@ -26,6 +26,7 @@ bronze-silver-functions = { git = "https://github.com/manolis1997/bronze_silver_
 [dependency-groups]
 dev = [
     "bump-my-version>=1.3.0",
+    "pytest-xdist>=3.8.0",
 ]
 prod = [
     "pydantic>=2.13.0",
