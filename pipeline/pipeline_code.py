@@ -9,7 +9,7 @@ from utils.read_yaml.read_yaml import ReadYaml
 from utils.spark_session.spark_class import SparkClass
 from utils.silver_scd import ScdTypeTwo
 from utils.arguments.arguments import args
-
+from fastapi import FastAPI
 
 table, load = args()
 

@@ -5,10 +5,16 @@ on:
     pull_request:
         branches:
             - development
+            - staging
+            - production
+            
 jobs:
-    test:
+    CI:
         runs-on: ubuntu-latest
         environment: dev
+        permissions:
+          actions: write
+          contents: read
         defaults:
             run:
                 working-directory: ./pipeline/
@@ -26,9 +32,90 @@ jobs:
               with:
                 python-version: "3.12"
             
+            - name: Install UV
+              run: | 
+                pip install uv
+                
+            - name: Caching Logic
+              uses: actions/cache@v4
+              id: uv-install-dependencies
+              env:
+                cache-name: cache-uv-modules
+              with:
+                path: ~/.cache/uv
+                key: ${{ runner.os }}-uv-${{ hashFiles('./pyproject.toml') }}
+                restore-keys: |
+                  ${{ runner.os }}-uv-
+
+            - name: Install Dependencies
+              if: ${{ steps.uv-install-dependencies.outputs.cache-hit != 'true' }}
+              run: |
+                  uv sync
+            
+            - name: Print pwd
+              run: |
+                pwd
+                ls ./
+
             - name: Initialise Environment # Set up the ENV
               run: bash ../scripts/init.sh
-            
+
+            - name: UV pip list
+              run: |
+                uv pip list
+        
             - name: Run the Code
               run: uv run python pipeline_code.py --table product --load CDC
-              
+
+
+            - name: Build release distributions
+              run: | 
+                cd ..
+                uv build
+
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: my-artifact
+                path: dist/
+                overwrite: true
+
+    # CD:
+    #   runs-on: ubuntu-latest
+    #   needs: CI
+    #   environment: dev
+    #   defaults:
+    #     run:
+    #       working-directory: ./pipeline/
+    #   env:
+    #     DATABRICKS_HOST: https://adb-1738163877178133.13.azuredatabricks.net/
+    #     DATABRICKS_CLIENT_ID: ${{secrets.DEV_SP_CLIENT_ID}}
+    #     DATABRICKS_CLIENT_SECRET: ${{secrets.DEV_SP_CLIENT_SECRET}}
+    #     DATABRICKS_CLUSTER_ID: ${{secrets.DEV_CLUSTER_ID}}
+
+    #   steps:
+    #     - name: Checkout code
+    #       uses: actions/checkout@v3
+
+    #     - name: Set up Python
+    #       uses: actions/setup-python@v4
+    #       with:
+    #         python-version: "3.12"
+
+    #     - name: Install UV
+    #       run: pip install uv
+
+    #     - name: Download build artifact
+    #       uses: actions/download-artifact@v4
+    #       with:
+    #         name: my-artifact
+    #         path: dist/
+
+    #     - name: Install cosmos wheel
+    #       run: uv add install ../dist/cosmos-*.whl
+
+    #     - name: Verify installation
+    #       run: uv pip list
+
+    #     - name: Run CD step
+    #       run: uv run python pipeline_code.py --table product --load FULL
