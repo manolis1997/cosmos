@@ -52,9 +52,8 @@ jobs:
               run: |
                   uv sync
             
-            - name: Install Dependencies (dev group)
-              if: github.base_ref == 'development'
-              run: uv sync --group dev
+            - name: Install Dependencies (stg group)
+              run: uv sync --group stg
             
             - name: Print pwd
               run: |
