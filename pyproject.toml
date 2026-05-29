@@ -38,7 +38,7 @@ stg = [
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
-commit_parser = "custom"
+commit_parser = "conventional"
 branch = "production"
 upload_to_pypi = false
 build_command = "pip install uv && uv build"
