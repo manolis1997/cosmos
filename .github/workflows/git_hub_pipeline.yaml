@@ -6,8 +6,8 @@ on:
         branches:
             - development
             - staging
-            - production
-            
+            - production 
+
 jobs:
     CI:
         runs-on: ubuntu-latest
