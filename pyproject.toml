@@ -38,10 +38,12 @@ stg = [
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
-commit_parser = "conventional"
-branch = "production"
 upload_to_pypi = false
 build_command = "pip install uv && uv build"
+
+[tool.semantic_release.branches.production]
+match = "production"
+prerelease = false
 
 [tool.semantic_release.changelog.default_templates]
 changelog_file = "CHANGELOG.md"
