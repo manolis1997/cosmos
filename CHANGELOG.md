@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v2.0.2 (2026-06-01)
+
+### Bug Fixes
+
+- Staging to PRD ([#38](https://github.com/manolis1997/cosmos/pull/38),
+  [`90b41da`](https://github.com/manolis1997/cosmos/commit/90b41dafe1b58b1ccf6eb95e1568304d43072db1))
+
+
 ## v2.0.1 (2026-05-29)
 
 ### Bug Fixes
