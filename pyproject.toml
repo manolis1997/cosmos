@@ -36,7 +36,6 @@ stg = [
 ]
 
 
-
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 upload_to_pypi = false
